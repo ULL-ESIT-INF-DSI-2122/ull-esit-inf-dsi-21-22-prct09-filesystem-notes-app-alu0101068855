@@ -46,6 +46,9 @@ inputStream.on('error', (err) => {
   process.stderr.write(err.message);
 });
 */
+/**
+ * Commands add
+ */
 yargs.command({
   command: 'add',
   describe: 'Add a new note',
@@ -80,7 +83,7 @@ yargs.command({
       console.log(chalk.green(`Dir ./dist/${argv.user} exists`));
     }
     else{
-      fs.mkdir(path.join(__dirname, String(argv.user)), (err) => {
+      fs.mkdir(path.join(__dirname, `./dist/${argv.user}`), (err) => {
         if (err) {
           return console.error(chalk.red(err));
         }
@@ -123,6 +126,53 @@ yargs.command({
 },
 });
 
+/**
+ * Commands modify
+ */
+yargs.command({
+  command: 'mod',
+  describe: 'Modify a note',
+  builder: {
+    title: {
+      describe: 'Note title',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Username',
+      demandOption: true,
+      type: 'string',
+    },
+    body: {
+      describe: 'Body of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    color: {
+      describe: 'Color of the letters',
+      demandOption: true,
+      type: 'string',
+    }
+  },
+  handler(argv) {
+    if (fs.existsSync(`./dist/${argv.user}/${argv.title}.txt`)){
+      fs.writeFile(`./dist/${argv.user}/${argv.title}.txt`, `${argv.body}`, (err) => {
+        if (err) {
+          return console.error(chalk.red(err));
+        }
+        else{
+          console.log(chalk.green(`Modified ${argv.title}.txt`));
+        }
+      });
+    }
+    else{
+      console.error(chalk.red(`This file doesn't exists`));
+    }
+},
+});
+/**
+ * Commands list
+ */
 yargs.command({
   command: 'list',
   describe: 'Lists all users notes',
@@ -141,6 +191,68 @@ yargs.command({
     }
     else{
       console.error(chalk.red(`Invalid user: ${argv.user}`));
+    }
+  }
+});
+
+/**
+ * Commands remove
+ */
+yargs.command({
+  command: 'remove',
+  describe: 'remove an user note',
+  builder: {
+    user: {
+      describe: 'Username',
+      demandOption: true,
+      type: 'string',
+    }, 
+    title: {
+      describe: 'Note title to delete',
+      demandOption: true,
+      type: 'string',
+    }
+  },
+  handler(argv) {
+    if (fs.existsSync(`./dist/${argv.user}/${argv.title}`)){
+      fs.promises.rm(`./dist/${argv.user}/${argv.title}`);
+      console.log(chalk.green(`Note: ${argv.user}/${argv.title} removed`));
+    }
+    else{
+      console.error(chalk.red(`Invalid user: ${argv.user} or filename: ${argv.title}`));
+    }
+  }
+});
+
+/**
+ * Commands read
+ */
+yargs.command({
+  command: 'read',
+  describe: 'Read an user note',
+  builder: {
+    user: {
+      describe: 'Username',
+      demandOption: true,
+      type: 'string',
+    },
+    title: {
+      describe: 'Note title to read',
+      demandOption: true,
+      type: 'string',
+    } 
+  },
+  handler(argv) {
+    if (fs.existsSync(`./dist/${argv.user}/${argv.title}`)){
+      console.log(chalk.green(`${argv.title}:`));
+      let cat = spawn('cat', [`./dist/${argv.user}/${argv.title}`]);
+      cat.stdout.pipe(process.stdout);
+      setTimeout(() => {
+        console.log();
+      }, 1000);
+    }
+    else{
+      console.error(chalk.red(`Invalid user: ${argv.user} or filename: ${argv.title}`));
     }
   }
 });

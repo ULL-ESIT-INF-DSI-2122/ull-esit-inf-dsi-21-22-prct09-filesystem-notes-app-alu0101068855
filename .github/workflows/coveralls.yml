@@ -1,3 +1,4 @@
+
 name: Coveralls
 
 on:
@@ -12,17 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Cloning repo
-    - uses: actions/checkout@v3
-    - name: Use Node.js 16.x
-    - uses: actions/setup-node@v3
+    - name: Clonning repo
+      uses: actions/checkout@v2
+    - name: Use Node.js 15.x
+      uses: actions/setup-node@v2
       with:
-        node-version: 16.x
+        node-version: 15.x
     - name: Installing dependencies
-    - run: npm install
+      run: npm install
     - name: Generating coverage information
-    - run: npm run coverage
+      run: npm run coverage
     - name: Coveralls GitHub Action
-    uses: coverallsapp/github-action@master
-    with:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}

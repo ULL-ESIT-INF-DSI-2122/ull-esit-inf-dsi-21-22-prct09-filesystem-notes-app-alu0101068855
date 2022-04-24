@@ -313,20 +313,7 @@
 <a name='L248'></a><a href='#L248'>248</a>
 <a name='L249'></a><a href='#L249'>249</a>
 <a name='L250'></a><a href='#L250'>250</a>
-<a name='L251'></a><a href='#L251'>251</a>
-<a name='L252'></a><a href='#L252'>252</a>
-<a name='L253'></a><a href='#L253'>253</a>
-<a name='L254'></a><a href='#L254'>254</a>
-<a name='L255'></a><a href='#L255'>255</a>
-<a name='L256'></a><a href='#L256'>256</a>
-<a name='L257'></a><a href='#L257'>257</a>
-<a name='L258'></a><a href='#L258'>258</a>
-<a name='L259'></a><a href='#L259'>259</a>
-<a name='L260'></a><a href='#L260'>260</a>
-<a name='L261'></a><a href='#L261'>261</a>
-<a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a>
-<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L251'></a><a href='#L251'>251</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -378,14 +365,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -393,12 +374,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,8 +385,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -641,40 +615,27 @@ yargs.command({
     }
   },
 <span class="fstat-no" title="function not covered" >  handler(</span>argv) {
-    /**
-     * Conditional to get if the user exists
-     */
 <span class="cstat-no" title="statement not covered" >    if (fs.existsSync(`./dist/${argv.user}`)){</span>
 <span class="cstat-no" title="statement not covered" >      console.log(chalk.green(`Dir ./dist/${argv.user} exists`));</span>
     }
     else{
-      /**
-       * If it user doesn't exists, it makes an new directory with the username
-       */
 <span class="cstat-no" title="statement not covered" >      fs.mkdir(path.join(__dirname, String(argv.user)), <span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (err) {</span>
 <span class="cstat-no" title="statement not covered" >          return console.error(chalk.red(err));</span>
         }
         else {
-          /**
-           * If there it's no errors in the directory creation, we will be notified by console 
-           */
 <span class="cstat-no" title="statement not covered" >          console.log(chalk.green(`Created dir ${argv.user} at ./dist/`));</span>
         }
       });
     }
-    /**
-     * It seeks if the file exists
-     */
+    //Sin timeout no se puede crear
 <span class="cstat-no" title="statement not covered" >    if (fs.existsSync(`./dist/${argv.user}/${argv.title}.json`)){</span>
 <span class="cstat-no" title="statement not covered" >      console.error(chalk.red('This file already exists'));</span>
     }
     else{
     let obj = <span class="cstat-no" title="statement not covered" >new JsonObject(String(argv.user), String(argv.title), String(argv.body), String(argv.color));</span>
     let json = <span class="cstat-no" title="statement not covered" >JSON.stringify(obj, null, 2);</span>
-      /**
-       * Without timeout the code will be executed at the same time
-       */
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        fs.writeFile(`./dist/${argv.user}/${argv.title}.json`, json, 'utf8', <span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          if (err) {</span>
@@ -859,7 +820,7 @@ yargs.parse();
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Apr 23 2022 15:48:00 GMT+0000 (Coordinated Universal Time)
+                at Sun Apr 24 2022 19:38:36 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="prettify.js"></script>
         <script>
